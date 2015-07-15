@@ -1,5 +1,5 @@
 /**
- * Created by Orens on 7/14/2015.
+ * Created by Orens on 7/15/2015.
  */
 public class Coordinate {
     private int x;
@@ -14,16 +14,8 @@ public class Coordinate {
         return x;
     }
 
-    public void setX(int x) {
-        this.x = x;
-    }
-
     public int getY() {
         return y;
-    }
-
-    public void setY(int y) {
-        this.y = y;
     }
 
     @Override
@@ -33,23 +25,20 @@ public class Coordinate {
 
         Coordinate that = (Coordinate) o;
 
-        if (x != that.x) return false;
-        return y == that.y;
+        if (getX() != that.getX()) return false;
+        return getY() == that.getY();
 
     }
 
     @Override
     public int hashCode() {
-        int result = x;
-        result = 31 * result + y;
+        int result = getX();
+        result = 31 * result + getY();
         return result;
     }
 
     @Override
     public String toString() {
-        return "Coordinate{" +
-                "x=" + x +
-                ", y=" + y +
-                '}';
+        return "("+getX()+", "+getY()+")";
     }
 }

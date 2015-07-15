@@ -1,28 +1,33 @@
 import java.util.LinkedList;
 
 /**
- * Created by Orens on 7/14/2015.
+ * Created by Orens on 7/15/2015.
  */
 public class Node {
-    private int hashCode;
+    private Coordinate location;
+
     private LinkedList<Node> neighbors;
     private boolean wall;
-    private static Coordinate occupied;
 
     public Node(int x, int y){
+        location = new Coordinate(x, y);
         neighbors = new LinkedList<>();
-        wall = false;
-        this.hashCode = 1024*x + y;
     }
 
     public void addNeighbor(Node neighbor){
-        if (!neighbors.contains(neighbor)) {
-            neighbors.add(neighbor);
-        }
+        neighbors.add(neighbor);
     }
 
     public void removeNeighbor(Node neighbor){
         neighbors.remove(neighbor);
+    }
+
+    public Coordinate getLocation() {
+        return location;
+    }
+
+    public LinkedList<Node> getNeighbors() {
+        return neighbors;
     }
 
     public boolean isWall() {
@@ -33,34 +38,31 @@ public class Node {
         this.wall = wall;
     }
 
-    public static Coordinate getOccupied() {
-        return occupied;
-    }
-
-    public static void setOccupied(Coordinate occupied) {
-        Node.occupied = occupied;
-    }
-
-    @Override
-    public String toString() {
-        return "Node{" +
-                "hashCode=" + hashCode  +
-                ", wall=" + wall +
-                '}';
-    }
-
     @Override
     public boolean equals(Object o) {
-        return o.hashCode() == hashCode;
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
-    }
+        Node node = (Node) o;
 
-    public LinkedList<Node> getNeighbors() {
-        return neighbors;
+        return getLocation().equals(node.getLocation());
+
     }
 
     @Override
     public int hashCode() {
-        return hashCode;
+        return getLocation().hashCode();
+    }
+
+    @Override
+    public String toString() {
+        String str = "";
+        for(Node node: neighbors){
+            str += node.location.toString() + "; ";
+        }
+        return "Node{" +
+                "location=" + location +
+                ", neighbors=" + str +
+                '}';
     }
 }
